@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 class HomePage:
 
     TITLE = "Официальный сайт компании ООО ССЗ Лисма | Лампы и светильники Лисма"
+
     LANGUAGE = "en/"
     LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
 
@@ -21,9 +22,11 @@ class HomePage:
     def is_title_correct(self):
         return self.driver.title == self.TITLE
 
+
     def set_en_lang(self, driver):
         self.driver = driver
         self.driver.get(f"{self.driver.current_url}{LANGUAGE}")
+
 
 
     def get_url(self):
@@ -41,6 +44,7 @@ class HomePage:
         return self.driver.current_url == self.PRESS_CZENTR_URL
 
 
+
 class TestUI(unittest.TestCase):
 
     def setUp(self):
@@ -50,7 +54,8 @@ class TestUI(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_title(self): 
+
+    def test_title(self):
         home_page = HomePage(self.driver)
         assert home_page.is_title_correct()
 
@@ -70,3 +75,28 @@ class TestUI(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+
+# import unittest
+#
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.by import By
+# import time
+# import pytest
+#
+# class PythonSearchTest(unittest.TestCase):
+#     def setUp(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("http://www.python.org")
+#         time.sleep(2)
+#
+#     def test_title(self):
+#         self.assertEqual(self.driver.title, "Welcome to Python.org")
+#
+#     def tearDown(self):
+#         self.driver.quit()
+#
+# if __name__ == '__main__':
+#     unittest.main()
