@@ -50,7 +50,7 @@ class TestUI(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-     def test_title(self): 
+    def test_title(self): 
         home_page = HomePage(self.driver)
         assert home_page.is_title_correct()
 
