@@ -58,7 +58,11 @@ class TestUI(unittest.TestCase):
     def test_title(self):
         home_page = HomePage(self.driver)
         assert home_page.is_title_correct()
-
+        
+    def test_PRESS_CZENTR(self):
+        home_page = HomePage(self.driver)
+        home_page.click_PRESS_CZENTR_LINK()
+        assert home_page.is_PRESS_CZENTR_page_opened()
 
     def test_language(self):
         home_page = HomePage(self.driver)
