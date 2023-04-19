@@ -1,12 +1,10 @@
 import unittest
 
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
 class HomePage:
-
     TITLE = "Официальный сайт компании ООО ССЗ Лисма | Лампы и светильники Лисма"
 
     LANGUAGE = "en/"
@@ -22,28 +20,46 @@ class HomePage:
     def is_title_correct(self):
         return self.driver.title == self.TITLE
 
-
-    def set_en_lang(self, driver):
-        self.driver = driver
-        self.driver.get(f"{self.driver.current_url}{LANGUAGE}")
-
-
+    # def set_en_lang(self, driver):
+    #     self.driver = driver
+    #     self.driver.get(f"{self.driver.current_url}{LANGUAGE}")
 
     def get_url(self):
         return self.driver.current_url
 
-    def click_PRESS_CZENTR_LINK(self):
+    def get_en_link(self):
+        return "https://lisma.su/en/"
+
+    def click_press_czentr_link(self):
         pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
         pc.click()
 
-    def click_language_LINK(self):
+    def click_language_link(self):
         pc = self.driver.find_element(*self.LANGUAGE_LINK)
         pc.click()
 
-    def is_PRESS_CZENTR_page_opened(self):
+    def is_press_czentr_page_opened(self):
         return self.driver.current_url == self.PRESS_CZENTR_URL
 
+    def is_language_en(self):
+        return self.get_en_link() == self.driver.current_url
 
+
+    SEARCH = (By.ID, "search")
+    search_text = "Стратегия развития"
+    LOUPE = (By.XPATH, '/html/body/div[1]/div/form/input[3]')
+    SEARCH_URL = "https://lisma.su/rezultatyi-poiska.html?search=%D0%A1%D1%82%D1%80%D0%B0%D1%82%D0%B5%D0%B3%D0%B8%D1%8F+%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F&id=697"
+
+    def write_search_text(self, search_text):
+        element = self.driver.find_element(*self.SEARCH)
+        element.send_keys(search_text)
+
+    def click_search(self):
+        pc = self.driver.find_element(*self.LOUPE)
+        pc.click()
+
+    def is_search_success(self):
+        return self.driver.current_url == self.SEARCH_URL
 
 class TestUI(unittest.TestCase):
 
@@ -54,49 +70,27 @@ class TestUI(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-
     def test_title(self):
         home_page = HomePage(self.driver)
         assert home_page.is_title_correct()
-        
-#     def test_PRESS_CZENTR(self):
-#         home_page = HomePage(self.driver)
-#         home_page.click_PRESS_CZENTR_LINK()
-#         assert home_page.is_PRESS_CZENTR_page_opened()
 
+    # def test_PRESS_CZENTR(self):
+    #     home_page = HomePage(self.driver)
+    #     home_page.click_press_czentr_link()
+    #     assert home_page.is_press_czentr_page_opened()
+    #
     def test_language(self):
         home_page = HomePage(self.driver)
-        en = f"{self.driver.current_url}en/"
-        home_page.click_language_LINK()
+        # en = f"{self.driver.current_url}en/"
+        home_page.click_language_link()
+        assert home_page.is_language_en()
 
-        assert en == home_page.driver.current_url
-
+    def test_search(self):
+        home_page = HomePage(self.driver)
+        home_page.write_search_text("Стратегия развития")
+        home_page.click_search()
+        assert home_page.is_search_success()
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-# import unittest
-#
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.common.by import By
-# import time
-# import pytest
-#
-# class PythonSearchTest(unittest.TestCase):
-#     def setUp(self):
-#         self.driver = webdriver.Chrome()
-#         self.driver.get("http://www.python.org")
-#         time.sleep(2)
-#
-#     def test_title(self):
-#         self.assertEqual(self.driver.title, "Welcome to Python.org")
-#
-#     def tearDown(self):
-#         self.driver.quit()
-#
-# if __name__ == '__main__':
-#     unittest.main()
