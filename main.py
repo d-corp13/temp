@@ -9,9 +9,6 @@ import time
 class HomePage:
     TITLE = "Официальный сайт компании ООО ССЗ Лисма | Лампы и светильники Лисма"
 
-    PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
-    PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
-
     def __init__(self, driver):
         self.driver = driver
         self.driver.get("https://lisma.su/")
@@ -19,23 +16,33 @@ class HomePage:
     def is_title_correct(self):
         return self.driver.title == self.TITLE
 
-    # def set_en_lang(self, driver):
-    #     self.driver = driver
-    #     self.driver.get(f"{self.driver.current_url}{LANGUAGE}")
-
     def get_url(self):
         return self.driver.current_url
 
-    def get_en_link(self):
-        return "https://lisma.su/en/"
+
+    PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
+    PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
 
     def click_press_czentr_link(self):
         pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
         pc.click()
-        
+
     def is_press_czentr_page_opened(self):
         return self.driver.current_url == self.PRESS_CZENTR_URL
-        
+
+    #####
+    KONTAKTYI_LINK = (By.XPATH, '/html/body/nav/ul/li[7]/a')
+    KONTAKTYI_URL = "https://lisma.su/kontakty/index.html"
+
+    def click_kontaktyi_link(self):
+        pc = self.driver.find_element(*self.KONTAKTYI_LINK)
+        pc.click()
+
+    def is_kontaktyi_page_opened(self):
+        return self.get_url() == self.KONTAKTYI_URL
+
+    #####
+
     LANGUAGE = "en/"
     LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
 
@@ -43,6 +50,8 @@ class HomePage:
         pc = self.driver.find_element(*self.LANGUAGE_LINK)
         pc.click()
 
+    def get_en_link(self):
+        return "https://lisma.su/en/"
 
     def is_language_en(self):
         return self.get_en_link() == self.driver.current_url
@@ -106,10 +115,16 @@ class TestUI(unittest.TestCase):
         home_page.click_search()
         assert home_page.is_search_success()
 
-    def test_alert(self):
+    def test_span_text(self):
         home_page = HomePage(self.driver)
         home_page.get_text_from_span()
         return home_page.is_true_span_text()
+
+    def test_kontaktyi(self):
+        home_page = HomePage(self.driver)
+        home_page.click_kontaktyi_link()
+        print(home_page.get_url())
+        assert home_page.is_kontaktyi_page_opened()
 
 
 if __name__ == '__main__':
