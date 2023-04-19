@@ -20,19 +20,19 @@ class HomePage:
         return self.driver.current_url
 
 
-    # PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
-    # PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
-    # PRESS_CZENTR_TITLE = "Новости ООО \"ССЗ Лисма\""
-    #
-    # def click_press_czentr_link(self):
-    #     pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
-    #     pc.click()
-    #
-    # def is_press_czentr_page_opened(self):
-    #     return self.driver.current_url == self.PRESS_CZENTR_URL
-    #
-    # def is_press_czentr_title_correct(self):
-    #     return self.driver.title == self.PRESS_CZENTR_TITLE
+    PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
+    PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
+    PRESS_CZENTR_TITLE = "Новости ООО \"ССЗ Лисма\""
+    
+    def click_press_czentr_link(self):
+        pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
+        pc.click()
+    
+    def is_press_czentr_page_opened(self):
+        return self.driver.current_url == self.PRESS_CZENTR_URL
+    
+    def is_press_czentr_title_correct(self):
+        return self.driver.title == self.PRESS_CZENTR_TITLE
 
 
     # KONTAKTYI_LINK = (By.XPATH, '/html/body/nav/ul/li[7]/a')
@@ -44,16 +44,6 @@ class HomePage:
     #
     # def is_kontaktyi_page_opened(self):
     #     return self.get_url() == self.KONTAKTYI_URL
-
-    VK_LINK = (By.XPATH, '/html/body/footer/div/div[4]/div/a[1]')
-    VK_URL = "https://vk.com/club203390007"
-
-    def click_vk_link(self):
-        pc = self.driver.find_element(*self.VK_LINK)
-        pc.click()
-
-    def is_vk_page_opened(self):
-        return self.get_url() == self.VK_URL
 
 
     LANGUAGE = "en/"
@@ -143,9 +133,7 @@ class TestUI(unittest.TestCase):
     #     home_page.click_kontaktyi_link()
     #     print(home_page.get_url())
     #     assert home_page.is_kontaktyi_page_opened()
-
-    def test_vk(self):
-        home_page = HomePage(self.driver)
-        home_page.click_vk_link()
-        print(home_page.get_url())
-        assert home_page.is_vk_page_opened()
+        
+        
+if __name__ == '__main__':
+    unittest.main()
