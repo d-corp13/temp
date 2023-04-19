@@ -2,13 +2,12 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import time
+
 
 
 class HomePage:
     TITLE = "Официальный сайт компании ООО ССЗ Лисма | Лампы и светильники Лисма"
-
-    LANGUAGE = "en/"
-    LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
 
     PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
     PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
@@ -33,13 +32,17 @@ class HomePage:
     def click_press_czentr_link(self):
         pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
         pc.click()
+        
+    def is_press_czentr_page_opened(self):
+        return self.driver.current_url == self.PRESS_CZENTR_URL
+        
+    LANGUAGE = "en/"
+    LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
 
     def click_language_link(self):
         pc = self.driver.find_element(*self.LANGUAGE_LINK)
         pc.click()
 
-    def is_press_czentr_page_opened(self):
-        return self.driver.current_url == self.PRESS_CZENTR_URL
 
     def is_language_en(self):
         return self.get_en_link() == self.driver.current_url
@@ -61,6 +64,17 @@ class HomePage:
     def is_search_success(self):
         return self.driver.current_url == self.SEARCH_URL
 
+    LAMP_LINK = (By.XPATH, "/html/body/div[3]/div[1]/a[3]/span/span[1]")
+    LAMP_SPAN_TEXT = "Лампы"
+
+    def get_text_from_span(self):
+        pc = self.driver.find_element(*self.LAMP_LINK)
+        return pc.get_attribute('innerHTML')
+
+    def is_true_span_text(self):
+        return self.get_text_from_span() == self.LAMP_SPAN_TEXT
+
+
 class TestUI(unittest.TestCase):
 
     def setUp(self):
@@ -68,6 +82,7 @@ class TestUI(unittest.TestCase):
         self.driver.get("https://lisma.su/")
 
     def tearDown(self):
+        time.sleep(1)
         self.driver.quit()
 
     def test_title(self):
@@ -90,6 +105,11 @@ class TestUI(unittest.TestCase):
         home_page.write_search_text("Стратегия развития")
         home_page.click_search()
         assert home_page.is_search_success()
+
+    def test_alert(self):
+        home_page = HomePage(self.driver)
+        home_page.get_text_from_span()
+        return home_page.is_true_span_text()
 
 
 if __name__ == '__main__':
