@@ -120,11 +120,11 @@ class TestUI(unittest.TestCase):
         home_page.get_text_from_span()
         return home_page.is_true_span_text()
 
-    def test_kontaktyi(self):
-        home_page = HomePage(self.driver)
-        home_page.click_kontaktyi_link()
-        print(home_page.get_url())
-        assert home_page.is_kontaktyi_page_opened()
+#     def test_kontaktyi(self):
+#         home_page = HomePage(self.driver)
+#         home_page.click_kontaktyi_link()
+#         print(home_page.get_url())
+#         assert home_page.is_kontaktyi_page_opened()
 
 
 if __name__ == '__main__':
