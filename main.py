@@ -22,6 +22,7 @@ class HomePage:
 
     PRESS_CZENTR_LINK = (By.XPATH, '/html/body/nav/ul/li[6]/a')
     PRESS_CZENTR_URL = "https://lisma.su/press-tsentr/index.html"
+    PRESS_CZENTR_TITLE = "Новости ООО \"ССЗ Лисма\""
 
     def click_press_czentr_link(self):
         pc = self.driver.find_element(*self.PRESS_CZENTR_LINK)
@@ -30,7 +31,10 @@ class HomePage:
     def is_press_czentr_page_opened(self):
         return self.driver.current_url == self.PRESS_CZENTR_URL
 
-    #####
+    def is_press_czentr_title_correct(self):
+        return self.driver.title == self.PRESS_CZENTR_TITLE
+
+
     KONTAKTYI_LINK = (By.XPATH, '/html/body/nav/ul/li[7]/a')
     KONTAKTYI_URL = "https://lisma.su/kontakty/index.html"
 
@@ -41,7 +45,6 @@ class HomePage:
     def is_kontaktyi_page_opened(self):
         return self.get_url() == self.KONTAKTYI_URL
 
-    #####
 
     LANGUAGE = "en/"
     LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
@@ -102,7 +105,12 @@ class TestUI(unittest.TestCase):
     #     home_page = HomePage(self.driver)
     #     home_page.click_press_czentr_link()
     #     assert home_page.is_press_czentr_page_opened()
-    #
+
+    def test_press_czentr_title(self):
+        home_page = HomePage(self.driver)
+        home_page.click_press_czentr_link()
+        assert home_page.is_press_czentr_title_correct()
+
     def test_language(self):
         home_page = HomePage(self.driver)
         # en = f"{self.driver.current_url}en/"
@@ -120,11 +128,11 @@ class TestUI(unittest.TestCase):
         home_page.get_text_from_span()
         return home_page.is_true_span_text()
 
-#     def test_kontaktyi(self):
-#         home_page = HomePage(self.driver)
-#         home_page.click_kontaktyi_link()
-#         print(home_page.get_url())
-#         assert home_page.is_kontaktyi_page_opened()
+    # def test_kontaktyi(self):
+    #     home_page = HomePage(self.driver)
+    #     home_page.click_kontaktyi_link()
+    #     print(home_page.get_url())
+    #     assert home_page.is_kontaktyi_page_opened()
 
 
 if __name__ == '__main__':
