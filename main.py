@@ -60,7 +60,6 @@ class HomePage:
         return self.get_cart_link() == self.driver.current_url
 
 
-
     LANGUAGE = "en/"
     LANGUAGE_LINK = (By.XPATH, '/html/body/div[1]/div/div/a[1]')
 
