@@ -121,6 +121,7 @@ class TestUI(unittest.TestCase):
     # #     home_page.click_press_czentr_link()
     # #     assert home_page.is_press_czentr_page_opened()
 
+    
     # def test_press_czentr_title(self):
     #     home_page = HomePage(self.driver)
     #     home_page.click_press_czentr_link()
