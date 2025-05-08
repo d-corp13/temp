@@ -148,7 +148,7 @@ class TestUI(unittest.TestCase):
     # #     home_page.click_kontaktyi_link()
     # #     print(home_page.get_url())
     # #     assert home_page.is_kontaktyi_page_opened()
-    #
+
     def test_cart(self):
         home_page = HomePage(self.driver)
         home_page.click_cart_link()
